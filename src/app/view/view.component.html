@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <br>
+    <h2 style="text-align:center"><b>UST Vendors</b></h2>
+    <br>
+    <br>
+    <!-- <div class="form-inline my-2 my-lg-0">  -->
+    <nav class="navbar navbar-dark bg-primary">
+        <input [(ngModel)]="vendors.department" (ngModelChange)="searchVendor(vendors.department)" class="form-control " type="search"
+            placeholder="Search Department" aria-label="Search" style="width:350px">
+         <button class="btn btn-primary" style="width:42px;height:39px;">
+            <i class="glyphicon glyphicon-search"></i>
+        </button> 
+        <!-- <button class="btn btn-primary"><i class="glyphicon glyphicon-search"></i>
+                </button> -->
+
+
+        <!--i class="fa fa-search" aria-hidden="true"></i>
+           <button  class="btn btn-primary" type="submit">Search</button-->
+        <button type="button" class="btn btn-success" style="width:80px; height:40px;float:left;margin-left:850px;"
+            (click)="addVendor()"> Add </button>
+        <button type="button" class="btn btn-danger" style="width:80px; height:40px;float:left;margin-left:2px"
+            (click)="logout()"> Logout </button>
+
+    </nav>
+    <!-- </div>  -->
+
+
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ven.Id</th>
+                <th>Ven.Name</th>
+                <th>Address</th>
+                <th>Location</th>
+                <th>Pincode</th>
+                <th>Service</th>
+                <th>cId</th>
+                <th>Cont.Name</th>
+                <th>Dept</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th colspan="4">Action</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let ven of vendor | paginate:{itemsPerPage:10,currentPage:p}">
+
+                <td>{{ven.vId}}</td>
+                <td>{{ven.vendor.vName}}</td>
+                <td>{{ven.vendor.address}}</td>
+                <td>{{ven.vendor.location}}</td>
+                <td>{{ven.vendor.pincode}}</td>
+                <td>{{ven.vendor.service}}</td>
+                <td>{{ven.cId}}</td>
+                <td>{{ven.cName}}</td>
+                <td>{{ven.department}}</td>
+                <td>{{ven.email}}</td>
+                <td>{{ven.phone}}</td>
+                <td><button type="button" class="btn btn-primary" (click)="editVendor(ven.vId,ven.cId)">Edit</button>
+                <td><button type="button" class="btn btn-danger" mwlConfirmationPopover [popoverTitle]="popoverTitle"
+                        [popoverMessage]="popoverMessage" placement="left" (confirm)="confirmClicked = true"
+                        (cancel)="cancelClicked = true" confirmButtonType="warning" cancelButtonType="default"
+                        (click)="confirmClicked = false; cancelClicked = false" [appendToBody]="true"
+                        (confirm)=delete(ven.cId)>
+                        Delete</button>
+
+            </tr>
+        </tbody>
+    </table>
+    <pagination-controls (pageChange)="p =$event"></pagination-controls>
+</div>
